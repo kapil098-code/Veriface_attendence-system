@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VeriFace Attendance — Standalone Web Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-shell">
+      <div class="auth-card">
+        <h1>VeriFace Attendance</h1>
+        <p id="auth-subtitle" class="muted">Administrator Sign In</p>
+        <div id="auth-error" class="alert hidden"></div>
+        <form id="auth-form">
+          <div id="setup-name-group" class="field hidden">
+            <label for="auth-name">Administrator Name</label>
+            <input id="auth-name" type="text" placeholder="Dr. Sarah Jenkins" />
+          </div>
+          <div class="field">
+            <label for="auth-email">Email</label>
+            <input id="auth-email" type="email" required placeholder="admin@institution.edu" />
+          </div>
+          <div class="field">
+            <label for="auth-password">Password</label>
+            <input id="auth-password" type="password" required placeholder="Enter password" />
+          </div>
+          <button type="submit" class="btn-primary full">Continue</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="dashboard-shell" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="brand">VeriFace Attendance</div>
+        <nav class="nav-list">
+          <button class="nav-btn active" data-view="monitor">Live Monitor</button>
+          <button class="nav-btn" data-view="logs">Attendance Logs</button>
+          <button class="nav-btn" data-view="reports">Reports</button>
+          <button class="nav-btn" data-view="users">Users</button>
+        </nav>
+        <button id="logout-btn" class="btn-outline">Sign Out</button>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <h2 id="view-title">Live Monitor</h2>
+          <button id="export-csv-btn" class="btn-primary">Export CSV</button>
+        </header>
+
+        <section id="view-monitor" class="view-panel">
+          <div class="kpi-row">
+            <div class="kpi"><span class="kpi-label">Checked In Today</span><strong id="kpi-present" class="mono">0</strong></div>
+            <div class="kpi"><span class="kpi-label">Late</span><strong id="kpi-late" class="mono">0</strong></div>
+            <div class="kpi"><span class="kpi-label">Absent</span><strong id="kpi-absent" class="mono">0</strong></div>
+            <div class="kpi"><span class="kpi-label">Turnout</span><strong id="kpi-rate" class="mono">0%</strong></div>
+          </div>
+          <div class="card">
+            <h3>Browser Webcam Feed</h3>
+            <video id="cam-video" autoplay playsinline muted class="video-box"></video>
+            <div class="actions">
+              <button id="start-cam-btn" class="btn-primary">Start Webcam</button>
+              <button id="stop-cam-btn" class="btn-outline">Stop Webcam</button>
+            </div>
+            <p id="cam-status" class="muted">Webcam idle. Python OpenCV service may also post directly to /api/attendance/recognize.</p>
+          </div>
+        </section>
+
+        <section id="view-logs" class="view-panel hidden">
+          <div class="card">
+            <div class="toolbar">
+              <input id="log-search" type="search" placeholder="Search name or roll no..." />
+              <input id="log-date" type="date" />
+              <button id="filter-logs-btn" class="btn-outline">Apply</button>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Roll No</th><th>Department</th><th>Date</th><th>Time In</th><th>Status</th><th>Confidence</th></tr>
+              </thead>
+              <tbody id="logs-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="view-reports" class="view-panel hidden">
+          <div class="card">
+            <h3>Department Summary</h3>
+            <table>
+              <thead>
+                <tr><th>Department</th><th>Members</th><th>Present Today</th><th>Absent Today</th><th>Period Rate</th></tr>
+              </thead>
+              <tbody id="dept-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="view-users" class="view-panel hidden">
+          <div class="card">
+            <h3>Registered Directory</h3>
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Roll No</th><th>Department</th><th>Role</th><th>Registered</th></tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

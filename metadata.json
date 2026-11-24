@@ -1,0 +1,6 @@
+{
+  "name": "VeriFace Attendance",
+  "description": "Real-time contactless attendance system with facial recognition, duplicate entry prevention, and administrative reporting.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
